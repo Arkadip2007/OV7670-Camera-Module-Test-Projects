@@ -18,18 +18,18 @@
 | **GND**    | GND                    | -    | Ground                   |
 | **SDA**    | IO21                   | 21   | SCCB (I2C Data)          |
 | **SCL**    | IO22                   | 22   | SCCB (I2C Clock)         |
-| **XCLK**   | IO4                    | 4    | Needs PWM/clock signal   |
+| **XCLK/ MCLK**   | IO4                    | 4    | Needs PWM/clock signal   |
 | **D0**     | IO32                   | 32   | Data line                |
 | **D1**     | IO33                   | 33   |                          |
 | **D2**     | IO34                   | 34   | Input-only               |
 | **D3**     | IO35                   | 35   | Input-only               |
-| **D4**     | SN                     | 39   | (GPIO 39, input-only)    |
-| **D5**     | SP                     | 36   | (GPIO 36, input-only)    |
+| **D4**     | SN / VN                    | 39   | (GPIO 39, input-only)    |
+| **D5**     | SP / VP                    | 36   | (GPIO 36, input-only)    |
 | **D6**     | IO18                   | 18   |                          |
 | **D7**     | IO19                   | 19   |                          |
 | **PCLK**   | IO25                   | 25   | Pixel clock              |
-| **VSYNC**  | IO26                   | 26   | Vertical sync            |
-| **HREF**   | IO27                   | 27   | Horizontal ref           |
+| **VSYNC/ VS**  | IO26                   | 26   | Vertical sync            |
+| **HREF/ HS**   | IO27                   | 27   | Horizontal ref           |
 | **RESET**  | 3V3                    | -    | Tie to 3.3V (or use GPIO)|
 | **PWDN**   | GND                    | -    | Tie to GND (or use GPIO) |
 
