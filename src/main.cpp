@@ -1,53 +1,52 @@
-#include <Wire.h>
+#include <WiFi.h>
+#include <ESPAsyncWebServer.h>
 
-// OV7670 I2C address (commonly 0x21 or 0x42 >> 1 = 0x21 for 7-bit)
-#define OV7670_I2C_ADDR 0x21
+const char* ssid = "spa";
+const char* password = "12345678";
+
+AsyncWebServer server(80);
 
 void setup() {
   Serial.begin(115200);
-  Wire.begin();
 
-  Serial.println("Initializing camera...");
-
-  if (testCameraConnection()) {
-    Serial.println("Camera connected successfully!");
-  } else {
-    Serial.println("Camera not detected! Check wiring.");
+  // Connect to WiFi (Station Mode)
+  WiFi.begin(ssid, password);
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
   }
 
-  delay(1000);
+  Serial.println("\nConnected to WiFi!");
+  Serial.println("IP Address: ");
+  Serial.println(WiFi.localIP());
+
+  // HTML Page
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+    String html = R"rawliteral(
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>ESP32 OV7670 Stream</title>
+      </head>
+      <body>
+        <h2>ESP32 Camera Stream</h2>
+        <img src="/stream" />
+      </body>
+      </html>
+    )rawliteral";
+    request->send(200, "text/html", html);
+  });
+
+  // Placeholder stream
+  server.on("/stream", HTTP_GET, [](AsyncWebServerRequest *request){
+    // This will be replaced with image data later
+    request->send(200, "image/jpeg", "", 0);
+  });
+
+  server.begin();
 }
 
 void loop() {
-  simulateImageCapture();
-  delay(1000);
-}
-
-bool testCameraConnection() {
-  Wire.beginTransmission(OV7670_I2C_ADDR);
-  byte error = Wire.endTransmission();
-  return (error == 0);
-}
-
-void simulateImageCapture() {
-  // Fake 8x8 grayscale image output
-  const int width = 8;
-  const int height = 8;
-
-  Serial.println("Simulated Image:");
-  for (int y = 0; y < height; y++) {
-    for (int x = 0; x < width; x++) {
-      int pixel = random(0, 256);  // Simulated grayscale value
-      char shade = mapPixelToAscii(pixel);
-      Serial.print(shade);
-    }
-    Serial.println();
-  }
-  Serial.println();
-}
-
-char mapPixelToAscii(int value) {
-  const char* shades = " .:-=+*#%@";
-  int index = map(value, 0, 255, 0, 9);
-  return shades[index];
+  // No code here for now
 }
