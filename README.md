@@ -1,1 +1,1 @@
-<img src="Title img.jpg">
+<img src="public/Title img.jpg">
