@@ -121,3 +121,4 @@ Since OV7670 doesn’t support JPEG natively and has no FIFO buffer:
 ---
 
 <img src="public/connections.jpg">
+![wifi](https://github.com/user-attachments/assets/9f633ef8-c2dd-4d4b-a9b9-8ab413d940a0)
